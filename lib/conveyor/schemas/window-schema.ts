@@ -97,4 +97,8 @@ export const windowIpcSchema = {
     args: z.tuple([z.string()]),
     return: z.void(),
   },
+  'open-compiler-folder': {
+    args: z.tuple([]),
+    return: z.void(),
+  },
 }

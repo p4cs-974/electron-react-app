@@ -65,7 +65,7 @@ git clone https://github.com/guasam/electron-react-app
 cd electron-react-app
 
 # Install dependencies (use any package manager: npm, yarn, pnpm, bun)
-npm install
+bun install
 ```
 
 <br />
@@ -75,10 +75,34 @@ npm install
 Start the development server:
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 This will start Electron with hot-reload enabled so you can see changes in real time.
+
+<br />
+
+## Compiler Setup
+
+This IDE supports running code through a custom Java compiler that translates to Rust. To set up the compiler:
+
+1. **Place your compiler JAR**: Drop your `Compilador.jar` file into the `compiler/` folder in the project root.
+   - The folder will be created automatically if it doesn't exist
+   - You can also access it via the menu: `Window > Open Compiler Folder`
+
+2. **Environment Variable (Optional)**: You can override the compiler path by setting the `SQUASH_COMPILER_PATH` environment variable to the full path of your JAR file.
+
+3. **Requirements**: 
+   - Java must be installed and available in your PATH
+   - Rust must be installed with `rustc` available in your PATH
+
+4. **Usage**: 
+   - Type your code in the main editor (MainSquare)
+   - Click the "Run code" button
+   - The output will appear in the TopRightSquare panel
+   - Errors and compiler messages will be displayed with appropriate styling
+
+The compiler will be automatically included in production builds via `electron-builder`'s `extraResources` configuration.
 
 <br />
 
@@ -402,16 +426,18 @@ Build the application for your platform:
 
 ```bash
 # For Windows
-npm run build:win
+bun run build:win
 
 # For macOS
-npm run build:mac
+bun run build:mac
 
 # For Linux
-npm run build:linux
+bun run build:linux
 
 # Unpacked for all platforms
-npm run build:unpack
+bun run build:unpack
 ```
 
 Distribution files will be located in the `dist` directory.
+
+**Note**: The compiler JAR file in the `compiler/` folder will be automatically included in the build. Make sure to place your `Compilador.jar` before building.

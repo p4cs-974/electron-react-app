@@ -116,6 +116,13 @@ export const menuItems: TitlebarMenu[] = [
         name: '---',
       },
       {
+        name: 'Open Compiler Folder',
+        action: 'open-compiler-folder',
+      },
+      {
+        name: '---',
+      },
+      {
         name: 'Maximize',
         action: 'window-maximize-toggle',
         shortcut: 'Toggle',

@@ -26,4 +26,5 @@ export class WindowApi extends ConveyorApi {
   webZoomOut = () => this.invoke('web-zoom-out')
   webToggleFullscreen = () => this.invoke('web-toggle-fullscreen')
   webOpenUrl = (url: string) => this.invoke('web-open-url', url)
+  openCompilerFolder = () => this.invoke('open-compiler-folder')
 }

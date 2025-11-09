@@ -1,5 +1,7 @@
 import type { BrowserWindow } from 'electron'
-import { shell } from 'electron'
+import { shell, app } from 'electron'
+import { join } from 'path'
+import { existsSync, mkdirSync } from 'fs'
 import { handle } from '@/lib/main/shared'
 import { electronAPI } from '@electron-toolkit/preload'
 
@@ -38,4 +40,18 @@ export const registerWindowHandlers = (window: BrowserWindow) => {
   handle('web-zoom-out', () => webContents.setZoomLevel(webContents.zoomLevel - 0.5))
   handle('web-toggle-fullscreen', () => window.setFullScreen(!window.fullScreen))
   handle('web-open-url', (url: string) => shell.openExternal(url))
+
+  // Compiler folder operations
+  handle('open-compiler-folder', () => {
+    const compilerPath = app.isPackaged
+      ? join(process.resourcesPath, 'compiler')
+      : join(process.cwd(), 'compiler')
+    
+    // Create folder if it doesn't exist
+    if (!existsSync(compilerPath)) {
+      mkdirSync(compilerPath, { recursive: true })
+    }
+    
+    shell.openPath(compilerPath)
+  })
 }
